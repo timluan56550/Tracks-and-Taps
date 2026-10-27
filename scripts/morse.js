@@ -1,0 +1,70 @@
+const morseBank ={
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 
+    'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 
+    'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 
+    'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 
+    'Y': '-.--', 'Z': '--..', ' ': '/',
+    
+    '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', 
+    '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
+    
+    '.': '.-.-.-', ',': '--..--', '?': '..--..', "'": '.----.', '!': '-.-.--',
+    '/': '-..-.', '(': '-.--.', ')': '-.--.-', '&': '.-...', ':': '---...', 
+    ';': '-.-.-.', '=': '-...-', '+': '.-.-.', '-': '-....-', '_': '..--.-', 
+    '"': '.-..-.', '$': '...-..-', '@': '.--.-.'
+}
+//change later
+const targetWord= "OAKWood"
+
+document.getElementById("wordDisplay").textContent =targetWord;
+const convertedMorse = textToMorse(targetWord)
+const morseDisplayElement = document.getElementById("morseDisplay")
+displayMorseSlowly(convertedMorse, morseDisplayElement)
+
+function textToMorse(text){
+    let result = ""
+    let upperText = text.toUpperCase();
+
+    for(let x=0; x<upperText.length; x++){
+        let char=upperText[x]
+        let morse = morseBank[char]
+        result += morse + " "
+    }
+    //removes extra spaces at the start and end
+    return result.trim()
+}
+
+
+//I can run this function on a await to make it delay the next code
+function delay(ms){
+    //creates a promise that makes sure teh code will finish
+    return new Promise(resolve => 
+        //will call resolve when the amount of time is up
+        setTimeout(resolve, ms)
+    )
+}
+
+async function displayMorseSlowly(morseString, displayElement) {
+    //clears old text
+    displayElement.textContent= ""
+
+    for (let x=0; x< morseString.length; x++){
+        //find the character
+        const char =morseString[x]
+        //puts it in the display
+        //DOT in ms
+        let pauseTime=600
+
+        if (char==="-"){
+            // DASHES
+            pauseTime=800
+        }   else if (char===" "){
+            //SPACES or SLASHES
+            pauseTime=1400;
+        }
+        //runs teh function and waits until its done
+        await delay(pauseTime)
+                displayElement.textContent+=char;
+
+    }
+}

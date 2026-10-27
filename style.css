@@ -1,0 +1,45 @@
+body{
+    margin: 0;
+  padding: 0;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.displayBox{
+text-align: center;
+border: 2px dashed gold;
+}
+/* makes it locked to 16/9 */
+#everything{
+width: 100vw;
+height: 100vh; 
+aspect-ratio: 16/9; 
+max-width: calc(100vh * (16 / 9)); 
+max-height: calc(100vw * (9 / 16)); 
+background-color: #212830; 
+position: relative; box-sizing: 
+border-box; 
+display: flex; 
+justify-content: center; 
+align-items: center; 
+container-type: size; 
+border: 2px dashed gold;
+ }
+ h1{
+    font-size: 8cqmin;
+ }
+ #morseDisplay{
+    font-size: 8cqmin;
+    font-family: monospace;
+    font-weight: bold;
+    color: #00ff00;
+    background-color: black;
+    display: inline-block;
+    border: 2px dashed red;
+    white-space: pre-wrap;
+ }
