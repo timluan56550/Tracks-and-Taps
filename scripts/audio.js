@@ -31,5 +31,5 @@ tutorialOverlay.addEventListener("click",()=>{
     gameStart=true;
     tutorialOverlay.classList.add("hidden")
     fadeAudio(gameAudio);
-    receiveCoworkerTransmission()
+    receiveCoworkerMessage()
 })

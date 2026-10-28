@@ -88,3 +88,51 @@ border: 2px dashed gold;
     word-break: normal;
     overflow-wrap: break-word;
  }
+ #inputBox{
+width: 100%;
+margin-top: 1cqmin;
+position: relative;
+border: 2px dashed green;
+ }
+ #typingDisplay{
+   position: relative;
+   font-family: monospace;
+   font-size: 7cqmin;
+   border: 2px dashed orange;
+   padding: 1.4cqmin;
+   min-height: 8cqh;
+   text-align: left;
+   display: flex;
+   align-items: center;
+   flex-wrap: wrap;
+ }
+ #cursorMove{
+   position: absolute;
+   width: 4cqmin;
+   height: 7cqmin;
+   background-color: #00ff00;
+   transition: left 0.05s ease, top 0.05s ease;
+   animation: blink 1s infinite;
+ }
+ @keyframes blink{
+   0% {opacity:1;}
+   50% {opacity:0;}
+   100% {opacity: 1;}
+ }
+ #morseInput{
+   position: absolute;
+   opacity: 0;
+   pointer-events: none;
+ }
+ #submitText{
+   margin-top: 1cqmin;
+   padding: 1cqmin 3cqmin;
+font-size: 3cqmin;
+font-family: monospace;
+font-width: bold;
+
+ }
+ .letter{
+   white-space: pre;
+   display:inline-block;
+ }

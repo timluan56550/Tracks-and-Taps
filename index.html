@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Track and Taps</title>
         <link rel="stylesheet" href="style.css">
+        <!-- dev tools -->
+        <script src="https://unpkg.com/eruda"></script>
+    <script>eruda.init();</script>
     </head>
     <body>
 <div id="everything">
@@ -14,17 +17,25 @@
     <div class="displayBox">
         <h1> Current Word: <span id="wordDisplay"></span></h1>
         <h1> Morse Output:</h1>
-        <p id="morseDisplay">
-
-        </p>
+        <p id="morseDisplay"></p>
+    <div id="inputBox">
+        <h2>Reply Morse (Target City):</h2>
+        <div id="typingDisplay">
+            <div id="cursorMove"></div>
+        </div>
+        <button id="submitText">SEND TRANSMISSION</button>
+        <input type="text" id="morseInput" autofocus/>
+        </div>
     </div>
 </div>
 <!-- <audio id="tutorialAudio" src="audio/music/start.ogg" loop preload="auto"></audio> -->
 <audio id="gameAudio" src="audio/music/play.ogg" loop preload="auto"></audio>
+<script src="./scripts/morse.js"></script>
+<script src="./scripts/game.js"></script>
+<script src="./scripts/telegraph.js"></script>
+
 <script src="./scripts/audio.js"></script>
 
-<script src="./scripts/game.js"></script>
 
-<script src="./scripts/morse.js"></script>
     </body>
 </html>

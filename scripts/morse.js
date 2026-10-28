@@ -15,25 +15,19 @@ const morseBank ={
 const BPM=(60/128)*1000;
 
 //change later
-function receiveCoworkerTransmission(){
-const targetWord= "Do not turn left"
 
-document.getElementById("wordDisplay").textContent =targetWord;
-const convertedMorse = textToMorse(targetWord)
-const morseDisplayElement = document.getElementById("morseDisplay")
-displayMorseSlowly(convertedMorse, morseDisplayElement)
-}
+
 function textToMorse(text){
+    //clear old and clean text
     let result = ""
     let upperText = text.toUpperCase();
 
+    //for each character
     for(let x=0; x<upperText.length; x++){
         let char=upperText[x]
-        if (morseBank[char]){
         result += morseBank[char] + " "
-        }
     }
-    //removes extra spacee
+    //removes extra spaces it finds white space \s and look for all of them /g a replace thme with 1 space, also trim the star and end
     return result.replace(/\s+/g, ' ').trim()
 }
 
