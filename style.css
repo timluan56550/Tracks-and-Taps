@@ -108,8 +108,8 @@ border: 2px dashed gold;
     font-size: 4cqmin;
  }
  #morseDisplay{
-    font-size: 8cqmin;
-    line-height: 1.4;
+    font-size: 6.8cqmin;
+    line-height: 1.3;
     font-family: monospace;
     font-weight: bold;
     color: #00ff00;
@@ -118,7 +118,7 @@ border: 2px dashed gold;
     border: 2px dashed red;
     display: block;
     width: 100%;
-    min-height: 12cqh;
+    min-height: 0;
     padding: 0 2cqmin;
     box-sizing: border-box;
     text-align: left;

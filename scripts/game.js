@@ -42,6 +42,7 @@ let strikes=0;
 let isGameover=false;
 let currentRoundNumber=0;
 let userInput=""
+ 
 
 function narratorMessage(text){
     const narratorElement=document.getElementById("narratorText");
@@ -68,7 +69,7 @@ return selectedCities;
 
 function generateMessage(){
     //% cahnce of picking an option form safe array
-    const isSafe=Math.random()>0.4
+    const isSafe=Math.random()>0.5
     let status=null;
     let direction=null;
     let targetDirection=null;
@@ -204,6 +205,7 @@ function winGame(){
         const wordDisplay=document.getElementById("wordDisplay")
      wordDisplay.textContent="You have traveled 1000km! SHIFT COMPLETE! SUCCEFULLY REROUTED"
 }
+
 function updateUI(){
     const strikeElement=document.getElementById("strikeDisplay");
     const roundElement=document.getElementById("roundDisplay")

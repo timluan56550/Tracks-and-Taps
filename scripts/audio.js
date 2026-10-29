@@ -1,15 +1,15 @@
 // const tutorialAudio =document.getElementById("tutorialAudio")
 const gameAudio = document.getElementById("gameAudio")
-const morseAudio=new Audio("audio/1000.wav")
+const morseAudio=new Audio("audio/600.wav")
 const tutorialOverlay=document.getElementById("tutorial")
 let gameStart=false;
 //loop
 // tutorialAudio.loop=true;
 gameAudio.loop=true
 morseAudio.loop=true;
-morseAudio.volume=0.2
-const manualMorseAudio=new Audio("audio/1000.wav")
-manualMorseAudio.volume=0.2
+morseAudio.volume=0.18
+const manualMorseAudio=new Audio("audio/600.wav")
+manualMorseAudio.volume=0.18
 let beepTimer=null;
 let minSound=30
 let soundStartTime=0;
