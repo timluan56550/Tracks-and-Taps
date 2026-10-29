@@ -1,7 +1,7 @@
 const safe = [
     "CLEAR",
-    "CLEAR",
     "SAFE",
+    "VALID",
     "PROCEED",
     "NO THREAT",
     "OPEN"
@@ -36,13 +36,17 @@ const cities =[
     "BEAR CREEK", "MILL CREEK", 
     "SPRING VALLEY"
 ]
-let score=0;
 const maxStrikes=3
 let strikes=0;
 
 let isGameover=false;
-let currentRound=null;
+let currentRoundNumber=0;
 let userInput=""
+
+function narratorMessage(text){
+    const narratorElement=document.getElementById("narratorText");
+    narratorElement.textContent=text;
+}
 //picks a random item int he array
 function getRandomMessage(array){
     const randomIndex=Math.floor(Math.random()*array.length)
@@ -117,15 +121,26 @@ console.log(textToMorse(targetCity))
     }
 }
 
+
+
+
 function receiveCoworkerMessage(){
+    if(isGameover){
+        return;
+    }
+//increase round and generates a new message
+    currentRoundNumber+=1
 currentRound= generateMessage()
+updateUI()
 
 const morseDisplayElement = document.getElementById("morseDisplay")
 displayMorseSlowly(currentRound.morse, morseDisplayElement)
-
-const wordDisplay = document.getElementById("wordDisplay")
-wordDisplay.textContent = currentRound.text
 }
+
+
+
+
+
 function evaluateMorse(){
     if(!currentRound||isGameover){
         return;
@@ -138,29 +153,57 @@ function evaluateMorse(){
     console.log("Player Morse:", playerTyped)
 
     if(playerTyped===expectedMorse){
-        score+=100;
-        console.log("Correct. Score:",score)
 
-        // updateUI()
-        // advanceNext()
+        updateUI()
+        advanceNext()
     }else{
         strikes+=1;
-        console.log("wrong. Score:",score)
-        console.log("      Strikes:",strikes)
-        // updateUI()
+        console.log("Wrong! Strikes:",strikes)
+        updateUI()
         if(strikes>=maxStrikes){
-            // gameover();
+            gameover();
         } else{
-            // advanceNext();
+            advanceNext();
         }
     }
 }
+
+
+
+
+
+
 const submitBtn=document.getElementById("submitText")
 submitBtn.addEventListener("click",()=>{
+if (submitBtn.disabled){
+    return
+}
+narratorMessage("SENDING TRANSMISSION...")
+    submitBtn.disabled=true
 evaluateMorse()
+
+})
+
+function advanceNext(){
 currentMorseText=""
 playerInputCheck();
-})
+ if (currentRoundNumber>=10){
+    winGame();
+ }else{
+    receiveCoworkerMessage()
+ }
+
+}
+function gameover(){
+    isGameover=true;
+    const wordDisplay=document.getElementById("wordDisplay")
+    wordDisplay.textContent="Uh oh! You went the wrong path and collided! GAME OVER"
+}
+function winGame(){
+    isGameover=true;
+        const wordDisplay=document.getElementById("wordDisplay")
+     wordDisplay.textContent="You have traveled 1000km! SHIFT COMPLETE! SUCCEFULLY REROUTED"
+}
 function updateUI(){
     const strikeElement=document.getElementById("strikeDisplay");
     const roundElement=document.getElementById("roundDisplay")
@@ -170,7 +213,7 @@ function updateUI(){
     const middleTrack=document.getElementById("middleTrack");
 
 strikeElement.textContent="STRIKES: "+strikes+"/3"
-roundElement.textContent="ROUND: "+currentRound+"/10"
+roundElement.textContent="ROUND: "+currentRoundNumber+"/10"
 leftCityElement.textContent=currentRound.cities.LEFT
 rightCityElement.textContent=currentRound.cities.RIGHT
 
