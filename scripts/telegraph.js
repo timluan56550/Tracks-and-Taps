@@ -59,6 +59,7 @@ window.addEventListener("keydown", (e)=>{
         if(!isCHeld){
             isCHeld=true;
             cPressStartTime=performance.now()
+            startTelegraph()
         }
         return;
     }
@@ -80,9 +81,25 @@ window.addEventListener("keydown", (e)=>{
     let typedChar=e.key
     if(typedChar==="."){
         typedChar="·"
+        currentMorseText+=typedChar;
+        beep(80)
+    playerInputCheck();
+        return;
+    }
+    if(typedChar==="-"){
+        
+        typedChar="-"
+        currentMorseText+=typedChar;
+        beep(240)
+        playerInputCheck()
+        return;
     }
     if(typedChar==="/"){
         typedChar =" / "
+        currentMorseText+=typedChar;
+
+        playerInputCheck()
+        return;
     }
     currentMorseText+=typedChar;
     playerInputCheck();
@@ -91,6 +108,7 @@ window.addEventListener("keydown", (e)=>{
 window.addEventListener("keyup",(e)=>{
 if(e.key==="m"){
         if(isCHeld){
+            stopTelegraph()
             const holdDuration=performance.now()-cPressStartTime
             isCHeld=false;
             if(holdDuration>=dashTime){
@@ -103,10 +121,7 @@ if(e.key==="m"){
     }
 })
 
-const submitBtn=document.getElementById("submitText")
-submitBtn.addEventListener("click",()=>{
-    console.log("submit")
-})
+
 window.addEventListener("resize", ()=>{
     moveCursor()
 })

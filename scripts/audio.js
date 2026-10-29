@@ -1,12 +1,49 @@
 // const tutorialAudio =document.getElementById("tutorialAudio")
 const gameAudio = document.getElementById("gameAudio")
+const morseAudio=new Audio("audio/1000.wav")
 const tutorialOverlay=document.getElementById("tutorial")
 let gameStart=false;
 //loop
 // tutorialAudio.loop=true;
 gameAudio.loop=true
-
-
+morseAudio.loop=true;
+morseAudio.volume=0.2
+const manualMorseAudio=new Audio("audio/1000.wav")
+manualMorseAudio.volume=0.2
+let beepTimer=null;
+let minSound=30
+let soundStartTime=0;
+function startTelegraph(){
+    morseAudio.currentTime=0;
+   soundStartTime=performance.now()
+    morseAudio.play()
+}
+function stopTelegraph(){
+    const elapsedTime=performance.now()-soundStartTime
+    const remainingTime=minSound-elapsedTime
+    if(remainingTime>0){
+        setTimeout(()=>{
+            morseAudio.pause();
+            morseAudio.currentTime=0;
+        }, remainingTime);
+    }else{
+        morseAudio.pause();
+    morseAudio.currentTime = 0;
+    }
+}
+function beep(duration){
+    if(beepTimer){
+        clearTimeout(beepTimer)
+    }
+    manualMorseAudio.volume=0.2
+    manualMorseAudio.currentTime=0
+    //plays and if fails continute
+    manualMorseAudio.play().catch(()=>{})
+    beepTimer=setTimeout(()=>{
+        manualMorseAudio.pause();
+        manualMorseAudio.currentTime=0
+    }, duration)
+}
 //fade the audio out and in
 function fadeAudio(fadeIn){
     fadeIn.volume=0
@@ -20,7 +57,7 @@ function fadeAudio(fadeIn){
             clearInterval(fadeInterval)
         }
     //change this to change the duration of the fade
-    }, 500);
+    }, 400);
     
 }
 

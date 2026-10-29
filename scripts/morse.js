@@ -31,7 +31,6 @@ function textToMorse(text){
     return result.replace(/\s+/g, ' ').trim()
 }
 
-
 //I can run this function on a await to make it delay the next code
 function delay(ms){
     //creates a promise that makes sure teh code will finish

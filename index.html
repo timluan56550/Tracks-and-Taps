@@ -11,10 +11,16 @@
     </head>
     <body>
 <div id="everything">
+
     <div id="tutorial">
         <img id="tutorialImage" src="images/tutorial.png">
     </div>
     <div class="displayBox">
+          <div id="gameStats">
+            <h2 id="roundDisplay">SWITCHES: 0/10</h2>
+            <h2 id="strikeDisplay">STRIKES:</h2>
+
+        </div>
         <h1> Current Word: <span id="wordDisplay"></span></h1>
         <h1> Morse Output:</h1>
         <p id="morseDisplay"></p>
@@ -25,6 +31,21 @@
         </div>
         <button id="submitText">SEND TRANSMISSION</button>
         <input type="text" id="morseInput" autofocus/>
+        </div>
+      
+        <div id="cityTrackBox">
+            <div class="cityTrack">
+                <span class="trackLabel">LEFT</span>
+                <h3 id="leftCity">----</h3>
+            </div>
+             <div class="cityTrack" id="middleTrack">
+                <span class="trackLabel">MIDDLE</span>
+                <h3 id="middleCity">----</h3>
+            </div>
+             <div class="cityTrack">
+                <span class="trackLabel">RIGHT</span>
+                <h3 id="rightCity">----</h3>
+            </div>
         </div>
     </div>
 </div>

@@ -11,6 +11,14 @@ body{
   align-items: center;
   min-height: 100vh;
 }
+.displayBox h1,
+.displayBox h2,
+.displayBox h3,
+.displayBox p{
+  margin-top: 0;
+    margin-bottom: 0;
+
+}
 #tutorial{
    position: absolute;
    width: 90%;
@@ -42,10 +50,9 @@ body{
 .displayBox{
 text-align: center;
 border: 2px dashed gold;
-width: 85%;
-max-width: 85%;
+width: 95%;
+max-width: 95%;
 box-sizing: border-box;
-padding: 2cqmin;
 }
 /* makes it locked to 16/9 */
 #everything{
@@ -67,7 +74,7 @@ border: 2px dashed gold;
 
  }
  h1{
-    font-size: 7cqmin;
+    font-size: 4cqmin;
  }
  #morseDisplay{
     font-size: 8cqmin;
@@ -81,7 +88,7 @@ border: 2px dashed gold;
     display: block;
     width: 100%;
     min-height: 12cqh;
-    padding: 2cqmin;
+    padding: 0 2cqmin;
     box-sizing: border-box;
     text-align: left;
     white-space: pre-wrap;
@@ -90,7 +97,7 @@ border: 2px dashed gold;
  }
  #inputBox{
 width: 100%;
-margin-top: 1cqmin;
+
 position: relative;
 border: 2px dashed green;
  }
@@ -125,14 +132,46 @@ border: 2px dashed green;
    pointer-events: none;
  }
  #submitText{
-   margin-top: 1cqmin;
-   padding: 1cqmin 3cqmin;
 font-size: 3cqmin;
 font-family: monospace;
-font-width: bold;
+font-weight: bold;
 
  }
  .letter{
    white-space: pre;
    display:inline-block;
+ }
+ #gameStats{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px dashed orangered;
+  font-family: monospace;  
+ }
+ #gameStats h2{
+  font-size: 5cqmin;
+  margin: 0;
+ }
+ #cityTrackBox{
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  padding: 1cqmin;
+  border: 2px dashed lawngreen;
+  font-family: monospace;
+ }
+ .cityTrack{
+  flex: 1;
+  text-align: center;
+  padding: 2cqmin 1cqmin;
+  border: 2px solid lawngreen;
+ }
+ .trackLabel{
+  font-size: 4cqmin;
+  font-weight: bold;
+  display: block;
+ }
+ .cityTrack h3{
+  margin: 0;
+  font-size: 5cqmin;
  }
