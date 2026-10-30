@@ -44,8 +44,8 @@ const scenes={
   crash: "https://placehold.co/700x100/red/white?text=TRAIN+CRASHED!",
   win: "https://placehold.co/700x100/yellow/000000?text=SHIFT+COMPLETE!+YOU+WIN!"
 }
-const startTime=120;
-const timeDecrease=5;
+const startTime=10;
+const timeDecrease=1;
 let currentRound=null;
 let timer=null;
 let timeleft=startTime
@@ -55,7 +55,7 @@ let strikes=0;
 let isGameover=false;
 let currentRoundNumber=0;
 let userInput=""
-const maxRounds=3
+const maxRounds=10
 
 
 function sceneImage(image){
@@ -65,7 +65,10 @@ function sceneImage(image){
 
 
 const submitBtn=document.getElementById("submitText")
-submitBtn.addEventListener("click", async()=>{
+submitBtn.addEventListener("click", beginProcess)
+
+
+async function beginProcess(){
 if (submitBtn.disabled||isIntermission){
     return
 }
@@ -87,7 +90,7 @@ const animation=[
         await delay(400);
     }
 await evaluateMorse()
-})
+}
 
 
 
@@ -192,23 +195,27 @@ function stopTimer(){
     clearInterval(timer);
     timer=null;
 }
-function handleTimeOut(){
-    if(isGameover) return;
+async function handleTimeOut(){
+    if(isGameover||isIntermission) return;
+    stopTimer();
+    stopMorseDisplay()
+    narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...")
+    await delay(2000)
     const chance=Math.random()<0.5;
     if(chance){
-        narratorMessage("TIME EXPIRED! Your coworker made a blind 50/50 switch and... SUCCEEDED! You got lucky this time")
-        advanceNext();
-        
+        narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...SUCCEEDED! You got lucky this time")
+        await startIntermission(false,false)
     }else{
         strikes+=1
         updateUI()
         if(strikes>=maxStrikes){
-        narratorMessage("TIME EXPIRED! Your coworker made a blind 50/50 switch and... FAILED! Train crashed. ")
-        gameover()
+        narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...FAILED! Train crashed. ")
+        delay(1000)
+        await startIntermission(true, false)
         }else{
-        narratorMessage("TIME EXPIRED! Your coworker made a blind 50/50 switch and... FAILED! (+1 Strike). ")
-        advanceNext()
-        }
+        narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...FAILED! (+1 Strike). ")
+        await startIntermission(false, false)
+    }
     }
 }
 
@@ -218,6 +225,7 @@ function receiveCoworkerMessage(){
         return;
     }
 //increase round and generates a new message
+narratorMessage("DISPATCH ONLINE. AWAITING TRANSMISSION...")
     currentRoundNumber+=1
 currentRound= generateMessage()
 updateUI()
