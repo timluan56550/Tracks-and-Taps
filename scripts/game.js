@@ -44,8 +44,8 @@ const scenes={
   crash: "https://placehold.co/700x100/red/white?text=TRAIN+CRASHED!",
   win: "https://placehold.co/700x100/yellow/000000?text=SHIFT+COMPLETE!+YOU+WIN!"
 }
-const startTime=10;
-const timeDecrease=1;
+const startTime=120;
+const timeDecrease=4;
 let currentRound=null;
 let timer=null;
 let timeleft=startTime
@@ -55,7 +55,7 @@ let strikes=0;
 let isGameover=false;
 let currentRoundNumber=0;
 let userInput=""
-const maxRounds=10
+const maxRounds=1
 
 
 function sceneImage(image){
@@ -102,6 +102,7 @@ async function evaluateMorse(){
         return;
     }
     stopTimer()
+    
     //removes whtiespace
     const playerTyped=currentMorseText.replace(/\s+/g," ").trim();
     const expectedMorse=currentRound.targetMorse.replace(/\s+/g," ").trim();
@@ -197,6 +198,7 @@ function stopTimer(){
 }
 async function handleTimeOut(){
     if(isGameover||isIntermission) return;
+    submitBtn.disabled=true
     stopTimer();
     stopMorseDisplay()
     narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...")
@@ -204,7 +206,12 @@ async function handleTimeOut(){
     const chance=Math.random()<0.5;
     if(chance){
         narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...SUCCEEDED! You got lucky this time")
-        await startIntermission(false,false)
+        if (currentRoundNumber>=maxRounds){
+            await startIntermission(false,true)
+
+        }else{
+            await startIntermission(false,false)
+        }
     }else{
         strikes+=1
         updateUI()
@@ -214,8 +221,11 @@ async function handleTimeOut(){
         await startIntermission(true, false)
         }else{
         narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...FAILED! (+1 Strike). ")
+        if (currentRoundNumber>=maxRounds){
+        await startIntermission(false, true)
+        }else{
         await startIntermission(false, false)
-    }
+    }}
     }
 }
 
