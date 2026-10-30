@@ -13,6 +13,7 @@ const morseBank ={
 }
 //my songs BPM (128)
 const BPM=(60/128)*1000;
+let currentMorseLoop=0;
 
 //change later
 
@@ -39,12 +40,20 @@ function delay(ms){
         setTimeout(resolve, ms)
     )
 }
-
+function stopMorseDisplay(){
+    currentMorseLoop++
+}
 async function displayMorseSlowly(morseString, displayElement) {
     //clears old text
+    stopMorseDisplay()
+    const thisLoop=currentMorseLoop;
     displayElement.textContent= ""
 
     for (let x=0; x< morseString.length; x++){
+        //stops a bug to prevent two displaymorseslowly from happening
+        if(thisLoop!==currentMorseLoop){
+            return
+        }
         //find the character
         const char =morseString[x]
         //puts it in the display

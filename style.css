@@ -71,6 +71,7 @@ box-sizing: border-box;
   border: 2px dashed purple;
 }
 #narratorBox{
+  line-height: 1;
   flex: 1;
   border: 2px dashed magenta;
   font-family: monospace;
@@ -207,3 +208,17 @@ font-weight: bold;
   font-size: 5cqmin;
  }
 
+#visualDisplay{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed cyan;
+  box-sizing: border-box;
+}
+#sceneImg{
+  width: 100%;
+  object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}

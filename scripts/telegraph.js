@@ -26,7 +26,13 @@ cursorElement.style.top=lastSpan.offsetTop+"px"
 
 //user part of my code from my previous week to make this input
 function playerInputCheck(){
-const cursorElement=document.getElementById("cursorMove")
+let cursorElement=document.getElementById("cursorMove")
+//fixes a bug where cursorelement was deleted during intermission 
+if(!cursorElement){
+    cursorElement=document.createElement("div")
+    cursorElement.id="cursorMove"
+
+}
 //clear old text
 typingDisplay.innerHTML=""
 typingDisplay.appendChild(cursorElement)
@@ -40,6 +46,11 @@ moveCursor()
 }
 
 window.addEventListener("keydown", (e)=>{
+const submitBtn=document.getElementById("submitText")
+//prevents typing during intermission etc
+if(submitBtn.disabled||isIntermission){
+    return;
+}
 
     if(e.key==="Backspace"){
         if(currentMorseText.length>0){

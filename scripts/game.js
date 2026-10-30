@@ -36,18 +36,137 @@ const cities =[
     "BEAR CREEK", "MILL CREEK", 
     "SPRING VALLEY"
 ]
-
-
+//temporary images
+const scenes={
+  paths2: "https://placehold.co/700x100/white/000000?text=TRACK+MAP:+2+PATHS",
+  paths3: "https://placehold.co/700x100/white/000000?text=TRACK+MAP:+3+PATHS",
+  trainMoving: "https://placehold.co/700x100/green/white?text=TRAIN+MOVING...",
+  crash: "https://placehold.co/700x100/red/white?text=TRAIN+CRASHED!",
+  win: "https://placehold.co/700x100/yellow/000000?text=SHIFT+COMPLETE!+YOU+WIN!"
+}
 const startTime=120;
 const timeDecrease=5;
-
+let currentRound=null;
 let timer=null;
 let timeleft=startTime
+let isIntermission=false;
 const maxStrikes=3
 let strikes=0;
 let isGameover=false;
 let currentRoundNumber=0;
 let userInput=""
+const maxRounds=3
+
+
+function sceneImage(image){
+    const sceneImgElement=document.getElementById("sceneImg")
+    sceneImgElement.src=scenes[image]
+}
+
+
+const submitBtn=document.getElementById("submitText")
+submitBtn.addEventListener("click", async()=>{
+if (submitBtn.disabled||isIntermission){
+    return
+}
+stopMorseDisplay()
+stopTimer()
+narratorMessage("SENDING TRANSMISSION...")
+submitBtn.disabled=true
+
+const typingDisplay =document.getElementById("typingDisplay")
+const animation=[
+".","..", "...",
+".","..", "...",
+".","..", "..."
+]
+
+    //repeats the number of items in the array with each loop having dots= index of loop#
+    for (let dots of animation){
+        typingDisplay.textContent="SENDING TRANSMISSION"+dots;
+        await delay(400);
+    }
+await evaluateMorse()
+})
+
+
+
+
+
+
+async function evaluateMorse(){
+    if(!currentRound||isGameover){
+        return;
+    }
+    stopTimer()
+    //removes whtiespace
+    const playerTyped=currentMorseText.replace(/\s+/g," ").trim();
+    const expectedMorse=currentRound.targetMorse.replace(/\s+/g," ").trim();
+    // console.log("Destination", currentRound.targetCity)
+    // console.log("Exspected Morse:", expectedMorse);
+    // console.log("Player Morse:", playerTyped)
+
+    if(playerTyped===expectedMorse){
+narratorMessage("TRANSMISSION SUCCESSFUL! Train routed to "+currentRound.targetCity)
+        updateUI()
+        //startIntermission ( crash, win)
+        if(currentRoundNumber>=maxRounds){
+            await startIntermission(false,true)
+        }else{
+            await startIntermission(false,false)
+        }
+    }else{
+        strikes+=1;
+        console.log("Wrong! Strikes:",strikes)
+        updateUI()
+        if(strikes>=maxStrikes){
+            narratorMessage("SIGNAL MISMATCHED! Train crashed")
+            await startIntermission(true, false)
+        } else{
+            narratorMessage("SIGNAL MISMATCHED! Coworker didn't understand what you were saying (+1 Strike)")
+
+           await startIntermission(false, false);
+        }
+    }
+}
+
+
+
+async function startIntermission(crash, win){
+    isIntermission=true;
+    stopTimer()
+    if(win){
+        sceneImage("win")
+        winGame()
+        return;
+    }
+    if(crash){
+        sceneImage("crash")
+        gameover()
+        return;
+    }
+    //for normal succesful switches
+    sceneImage("trainMoving")
+    //delay function is in morse.js
+    await delay(4500)
+    isIntermission=false;
+    advanceNext()
+}
+
+function advanceNext(){
+currentMorseText=""
+playerInputCheck();
+ if (currentRoundNumber>=maxRounds){
+    winGame();
+ }else{
+    receiveCoworkerMessage()
+    submitBtn.disabled=false
+
+ }
+
+}
+
+
  
 function startTimer(){
     //calculate how much time for a round
@@ -91,6 +210,27 @@ function handleTimeOut(){
         advanceNext()
         }
     }
+}
+
+
+function receiveCoworkerMessage(){
+    if(isGameover){
+        return;
+    }
+//increase round and generates a new message
+    currentRoundNumber+=1
+currentRound= generateMessage()
+updateUI()
+if(currentRound.paths===3){
+    sceneImage("paths3")
+}else{
+    sceneImage("paths2")
+}
+
+startTimer();
+
+const morseDisplayElement = document.getElementById("morseDisplay")
+displayMorseSlowly(currentRound.morse, morseDisplayElement)
 }
 
 function narratorMessage(text){
@@ -176,97 +316,19 @@ console.log(textToMorse(targetCity))
 
 
 
-function receiveCoworkerMessage(){
-    if(isGameover){
-        return;
-    }
-//increase round and generates a new message
-    currentRoundNumber+=1
-currentRound= generateMessage()
-updateUI()
-startTimer();
-
-const morseDisplayElement = document.getElementById("morseDisplay")
-displayMorseSlowly(currentRound.morse, morseDisplayElement)
-}
-
-
-
-
-
-function evaluateMorse(){
-    if(!currentRound||isGameover){
-        return;
-    }
-    stopTimer()
-    //removes whtiespace
-    const playerTyped=currentMorseText.replace(/\s+/g," ").trim();
-    const expectedMorse=currentRound.targetMorse.replace(/\s+/g," ").trim();
-    console.log("Destination", currentRound.targetCity)
-    console.log("Exspected Morse:", expectedMorse);
-    console.log("Player Morse:", playerTyped)
-
-    if(playerTyped===expectedMorse){
-
-        updateUI()
-        advanceNext()
-    }else{
-        strikes+=1;
-        console.log("Wrong! Strikes:",strikes)
-        updateUI()
-        if(strikes>=maxStrikes){
-            gameover();
-        } else{
-            advanceNext();
-        }
-    }
-}
 
 
 
 
 
 
-const submitBtn=document.getElementById("submitText")
-submitBtn.addEventListener("click", async()=>{
-if (submitBtn.disabled){
-    return
-}
-stopTimer()
-narratorMessage("SENDING TRANSMISSION...")
-submitBtn.disabled=true
-
-const typingDisplay =document.getElementById("typingDisplay")
-const animation=[
-".","..", "...",
-".","..", "...",
-".","..", "..."
-]
-
-    //repeats the number of items in the array with each loop having dots= index of loop#
-    for (let dots of animation){
-        typingDisplay.textContent="SENDING TRANSMISSION"+dots;
-        await delay(400);
-    }
-evaluateMorse()
 
 
 
 
-})
 
-function advanceNext(){
-currentMorseText=""
-playerInputCheck();
- if (currentRoundNumber>=10){
-    winGame();
- }else{
-    receiveCoworkerMessage()
-    submitBtn.disabled=false
 
- }
 
-}
 function gameover(){
     isGameover=true;
     stopTimer()
@@ -288,7 +350,7 @@ function updateUI(){
     const middleTrack=document.getElementById("middleTrack");
 
 strikeElement.textContent="STRIKES: "+strikes+"/3"
-roundElement.textContent="ROUND: "+currentRoundNumber+"/10"
+roundElement.textContent="ROUND: "+currentRoundNumber+"/"+maxRounds
 leftCityElement.textContent=currentRound.cities.LEFT
 rightCityElement.textContent=currentRound.cities.RIGHT
 
