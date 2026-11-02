@@ -20,7 +20,7 @@ A fun decoding and encoding morse code puzzle game!
 - You can type the morse code using these keys ".", "-", "Space", and "/". These represent a dot, dash, letter break, and word break respectfully.
 - You may also use "m", "x", "z". Press m for a dot, press m longer for a dash. Press x for a letter break (space). Press z for a work break.
 - Every round there is either a 2-way or 3-way junction
-- The amount of time you get per round decreases slightly. If it runs out, your coworker makes a blind pick! (Chance to succeed or fail)
+- The amount of time you get per round decreases slightly. If it runs out, your coworker makes a blind pick! (Chance to succeed or fail - 30/70)
 - Cool pixel art of train animations
 - A narrator box to see what happened!
 - There is a morse code cheat sheet on the right

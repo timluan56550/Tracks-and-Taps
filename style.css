@@ -46,11 +46,11 @@ body{
    object-fit: contain;
    image-rendering: crisp-edges;
    image-rendering: pixelated;
+   border: 2cqmin solid black;
 }
 .displayBox{
 text-align: center;
 flex: 2;
-border: 2px dashed gold;
 height:100%;
 box-sizing: border-box;
 }
@@ -59,32 +59,33 @@ box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.4cqmin;
+  padding: 0.2cqmin;
   box-sizing: border-box;
-  border: 2px dashed black;
 }
 #morseChartBox{
   flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px dashed purple;
+  
 }
 #narratorBox{
   line-height: 1;
   flex: 1;
-  border: 2px dashed magenta;
   font-family: monospace;
   text-align: left;
   overflow-y: auto;
   box-sizing: border-box;
   font-size: 3cqmin;
+  border: 2cqmin solid black;
 }
 #morseBankImg{
   max-width: 100%;
   max-height: 100%;
   height: 80cqmin;
   object-fit: contain;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 /* makes it locked to 16/9 */
@@ -102,21 +103,20 @@ display: flex;
 justify-content: space-between; 
 align-items: stretch; 
 container-type: size; 
-border: 2px dashed gold;
+overflow: hidden;
 
  }
  h1{
     font-size: 4cqmin;
  }
  #morseDisplay{
-    font-size: 6.8cqmin;
+    font-size: 5cqmin;
     line-height: 1.3;
     font-family: monospace;
     font-weight: bold;
     color: #00ff00;
     background-color: black;
     display: inline-block;
-    border: 2px dashed red;
     display: block;
     width: 100%;
     min-height: 0;
@@ -131,19 +131,18 @@ border: 2px dashed gold;
 width: 100%;
 
 position: relative;
-border: 2px dashed green;
  }
  #typingDisplay{
    position: relative;
    font-family: monospace;
-   font-size: 7cqmin;
-   border: 2px dashed orange;
+   font-size: 6cqmin;
    padding: 1.4cqmin;
    min-height: 8cqh;
    text-align: left;
    display: flex;
    align-items: center;
    flex-wrap: wrap;
+   border: 1cqmin solid black
  }
  #cursorMove{
    position: absolute;
@@ -177,7 +176,6 @@ font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 2px dashed orangered;
   font-family: monospace;  
  }
  #gameStats h2{
@@ -189,14 +187,12 @@ font-weight: bold;
   justify-content: space-around;
   align-items: stretch;
   padding: 1cqmin;
-  border: 2px dashed lawngreen;
   font-family: monospace;
  }
  .cityTrack{
   flex: 1;
   text-align: center;
   padding: 2cqmin 1cqmin;
-  border: 2px solid lawngreen;
  }
  .trackLabel{
   font-size: 4cqmin;
@@ -213,7 +209,6 @@ font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px dashed cyan;
   box-sizing: border-box;
 }
 #sceneImg{

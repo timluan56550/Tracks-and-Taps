@@ -60,10 +60,11 @@ async function displayMorseSlowly(morseString, displayElement) {
         //DOT in ms - these time are becase i wanted to match my beat
 
         let pauseTime=BPM
-
+       
         if (char==="/"){
             // DASHES
             pauseTime=BPM*2
+            
         }  
         //runs teh function and waits until its done
         await delay(pauseTime)

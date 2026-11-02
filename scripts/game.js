@@ -38,14 +38,14 @@ const cities =[
 ]
 //temporary images
 const scenes={
-  paths2: "https://placehold.co/700x100/white/000000?text=TRACK+MAP:+2+PATHS",
-  paths3: "https://placehold.co/700x100/white/000000?text=TRACK+MAP:+3+PATHS",
-  trainMoving: "https://placehold.co/700x100/green/white?text=TRAIN+MOVING...",
-  crash: "https://placehold.co/700x100/red/white?text=TRAIN+CRASHED!",
-  win: "https://placehold.co/700x100/yellow/000000?text=SHIFT+COMPLETE!+YOU+WIN!"
+  paths2: "images/2paths.png",
+  paths3: "images/3paths.png",
+  trainMoving: "images/moving.gif",
+  crash: "images/crash.png",
+  win: "images/win.png"
 }
-const startTime=120;
-const timeDecrease=4;
+const startTime=200;
+const timeDecrease=5;
 let currentRound=null;
 let timer=null;
 let timeleft=startTime
@@ -55,7 +55,7 @@ let strikes=0;
 let isGameover=false;
 let currentRoundNumber=0;
 let userInput=""
-const maxRounds=1
+const maxRounds=10
 
 
 function sceneImage(image){
@@ -152,7 +152,7 @@ async function startIntermission(crash, win){
     //for normal succesful switches
     sceneImage("trainMoving")
     //delay function is in morse.js
-    await delay(4500)
+    await delay(4000)
     isIntermission=false;
     advanceNext()
 }
@@ -203,7 +203,7 @@ async function handleTimeOut(){
     stopMorseDisplay()
     narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...")
     await delay(2000)
-    const chance=Math.random()<0.5;
+    const chance=Math.random()<0.3;
     if(chance){
         narratorMessage("TIME EXPIRED! Your coworker made a blind pick and...SUCCEEDED! You got lucky this time")
         if (currentRoundNumber>=maxRounds){
@@ -350,12 +350,15 @@ console.log(textToMorse(targetCity))
 function gameover(){
     isGameover=true;
     stopTimer()
+    sceneImage("crash")
     narratorMessage("You have used up all your strikes and crashed! Refresh the page to play again.")
 
 }
 function winGame(){
     isGameover=true;
     stopTimer()
+    sceneImage("win")
+
     narratorMessage("You have traveled 1000km! SHIFT COMPLETE! SUCCEFULLY REROUTED")
 }
 
