@@ -25,6 +25,9 @@ A fun decoding and encoding morse code puzzle game!
 - A narrator box to see what happened!
 - There is a morse code cheat sheet on the right
 
+### Notes
+I made this because I thought it would be cool if I could actually use and play around with morse code to send and recieve codes. I also made this because back then this was a form of sending messages and I wanted to see how fast it would take to decode and encode just a few words.
+
 | Key | Action |
 | ----------- | ----------- |
 | m (Tap/Hold) | Tap for Dot, Hold for Dash |
@@ -33,6 +36,8 @@ A fun decoding and encoding morse code puzzle game!
 | Spacebar or x | Letter Break |
 | / or z | Word Break |
 | Backspace | Deletes the previous letter |
+
+### Thanks for playing!
 
 ---
 
